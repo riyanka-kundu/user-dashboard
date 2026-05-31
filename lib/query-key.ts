@@ -1,0 +1,15 @@
+export const QUERY_KEY = {
+  LOG_IN: "login",
+  LOG_OUT: "logout",
+  REFRESH: "refresh",
+  REGISTRATION: "registration",
+  VERIFY_OTP: "verifyOtp",
+  FORGOT_PASSWORD: "forgotPassword",
+  RESET_PASSWORD: "resetPassword",
+  DASHBOARD: "dashboard",
+  SLOT_LIST: "slotList",
+  DOCTOR_LIST: "doctorList",
+  APPOINTMENT: "appointment",
+  HISTORY: "history",
+  DIAGNOSTIC_CENTER: "diagnosticCenter",
+};
