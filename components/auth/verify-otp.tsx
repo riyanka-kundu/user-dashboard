@@ -1,7 +1,7 @@
 "use client";
 
 import { useVerifyOtp } from "@/hooks/auth";
-import { KeyboardEvent, useRef, useState } from "react";
+import { ClipboardEvent, KeyboardEvent, useRef, useState } from "react";
 import { Cookies } from "react-cookie";
 
 const VerifyOtp = () => {
@@ -33,7 +33,7 @@ const VerifyOtp = () => {
     }
   };
 
-  const handlePaste = (e: React.ClipboardEvent) => {
+  const handlePaste = (e: ClipboardEvent) => {
     e.preventDefault();
     const pasted = e.clipboardData
       .getData("text")

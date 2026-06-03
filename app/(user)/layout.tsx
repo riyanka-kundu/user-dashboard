@@ -14,12 +14,14 @@ export default function UserLayout({ children }: { children: ReactNode }) {
       <DashboardSidebar />
 
       <SidebarInset className="flex h-screen flex-col overflow-hidden">
-        <div className="flex h-16 shrink-0 items-center justify-between border-b border-slate-200 bg-white px-6 dark:border-slate-800 dark:bg-slate-950">
+        <div className="flex h-16 shrink-0 items-center justify-between border-b border-slate-200 bg-white px-6 dark:border-slate-800 dark:bg-slate-950 z-1001">
           <SidebarTrigger className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white" />
           <AppNavbar variant="dashboard" />
         </div>
 
-        <div className="flex-1 overflow-y-auto">{children}</div>
+        <div className="flex-1 overflow-y-auto bg-white dark:bg-slate-950">
+          {children}
+        </div>
       </SidebarInset>
     </SidebarProvider>
   );

@@ -39,6 +39,13 @@ export type TDoctorListResponse = {
   page: number;
   limit: number;
 };
+
+export enum AppointmentStatus {
+  PENDING = "Pending",
+  CONFIRMED = "Confirmed",
+  CANCELLED = "Cancelled",
+}
+
 export type TAppointment = {
   _id: string;
   doctorId: {
@@ -53,7 +60,7 @@ export type TAppointment = {
   name: string;
   date: string;
   time: string;
-  status: "Pending" | "Confirmed" | "Cancelled";
+  status: AppointmentStatus;
   createdAt: string;
 };
 

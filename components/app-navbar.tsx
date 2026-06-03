@@ -91,7 +91,7 @@ export default function AppNavbar({ variant }: AppNavbarProps) {
                   </button>
                 </DropdownMenuTrigger>
 
-                <DropdownMenuContent align="end" className="w-48">
+                <DropdownMenuContent align="end" className="w-48 z-1002">
                   <DropdownMenuItem asChild>
                     <Link
                       href="/profile"
