@@ -1,11 +1,7 @@
 import Dashboard from "@/components/user/dashboard";
 
 const page = () => {
-  return (
-    <div>
-      <Dashboard />
-    </div>
-  );
+  return <Dashboard />;
 };
 
 export default page;

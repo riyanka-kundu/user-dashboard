@@ -14,9 +14,6 @@ import {
   Eye,
   Heart,
   HeartPulse,
-  LayoutDashboard,
-  Loader2,
-  LogIn,
   MapPin,
   Phone,
   Star,
@@ -25,9 +22,8 @@ import {
   UserPlus,
 } from "lucide-react";
 import Link from "next/link";
-import { Cookies } from "react-cookie";
 
-import { ModeToggle } from "@/components/mood-toggel";
+import AppNavbar from "@/components/app-navbar";
 import {
   Carousel,
   CarouselContent,
@@ -35,7 +31,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { useLogout } from "@/hooks/auth";
 
 // ── Data ────────────────────────────────────────────────────────────────────
 
@@ -180,79 +175,12 @@ const TESTIMONIALS = [
 // ── Component ────────────────────────────────────────────────────────────────
 
 export default function HomePage() {
-  const cookies = new Cookies();
-  const token = cookies.get("token");
-  const { mutate: logoutHandler, isPending } = useLogout();
-
   return (
     <main className="min-h-screen bg-white text-slate-900 dark:bg-slate-950 dark:text-white">
-      {/* ── NAVBAR ─────────────────────────────────────────────────────── */}
-      <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur dark:border-slate-800 dark:bg-slate-950/80">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <Link href="/" className="flex items-center gap-3">
-            <div className="rounded-2xl bg-blue-600 p-3 text-white">
-              <HeartPulse className="size-6" />
-            </div>
-            <div>
-              <h1 className="text-xl font-black">MediCare+</h1>
-              <p className="text-xs text-slate-500 dark:text-slate-400">
-                Doctor Appointment Platform
-              </p>
-            </div>
-          </Link>
-
-          <div className="flex items-center gap-3">
-            <ModeToggle />
-            {token ? (
-              <>
-                <Link
-                  href="/dashboard"
-                  className="flex items-center gap-2 rounded-xl border border-slate-300 px-4 py-2 text-sm font-semibold transition hover:bg-slate-100 dark:border-slate-700 dark:hover:bg-slate-800"
-                >
-                  <LayoutDashboard className="size-4" /> Dashboard
-                </Link>
-                <Link
-                  href="/profile"
-                  className="flex items-center gap-2 rounded-xl border border-slate-300 px-4 py-2 text-sm font-semibold transition hover:bg-slate-100 dark:border-slate-700 dark:hover:bg-slate-800"
-                >
-                  <User className="size-4" /> Profile
-                </Link>
-                <button
-                  disabled={isPending}
-                  onClick={() => logoutHandler()}
-                  className="flex items-center gap-2 rounded-xl bg-red-500 px-5 py-2 text-sm font-semibold text-white transition hover:bg-red-600 disabled:opacity-70"
-                >
-                  {isPending ? (
-                    <>
-                      <Loader2 className="size-4 animate-spin" /> Logging out...
-                    </>
-                  ) : (
-                    "Logout"
-                  )}
-                </button>
-              </>
-            ) : (
-              <>
-                <Link
-                  href="/login"
-                  className="flex items-center gap-2 rounded-xl border border-slate-300 px-5 py-2 text-sm font-semibold transition hover:bg-slate-100 dark:border-slate-700 dark:hover:bg-slate-800"
-                >
-                  <LogIn className="size-4" /> Login
-                </Link>
-                <Link
-                  href="/register"
-                  className="flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-blue-700"
-                >
-                  <UserPlus className="size-4" /> Sign Up
-                </Link>
-              </>
-            )}
-          </div>
-        </div>
-      </header>
+      <AppNavbar variant="public" />
 
       {/* ── HERO ───────────────────────────────────────────────────────── */}
-      <section className="bg-gradient-to-br from-blue-50 via-white to-slate-50 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900">
+      <section className="bg-linear-to-br from-blue-50 via-white to-slate-50 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900">
         <div className="mx-auto max-w-7xl px-6 py-24 lg:py-32">
           {/* Text block — centered */}
           <div className="mx-auto mb-16 max-w-3xl text-center">
@@ -491,7 +419,7 @@ export default function HomePage() {
                   ))}
                 </div>
                 <p className="mb-6 leading-relaxed text-slate-600 dark:text-slate-300">
-                  "{text}"
+                  {text}
                 </p>
                 <div className="flex items-center gap-3">
                   <div className="flex size-10 items-center justify-center rounded-full bg-blue-600 text-xs font-bold text-white">
@@ -513,7 +441,7 @@ export default function HomePage() {
           </h2>
           <p className="mb-10 text-lg text-blue-100">
             Join 50,000+ patients who trust MediCare+ for their healthcare
-            needs. It's free to get started.
+            needs. It&apos;s free to get started.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link

@@ -1,34 +1,25 @@
-// app/dashboard/layout.tsx
+import DashboardSidebar from "@/components/user/dashboard-sidebar";
 
+import AppNavbar from "@/components/app-navbar";
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import DashboardSidebar from "@/components/user/sidebar";
+import { ReactNode } from "react";
 
-export default function UserLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function UserLayout({ children }: { children: ReactNode }) {
   return (
-    <SidebarProvider>
+    <SidebarProvider className="h-screen overflow-hidden">
       <DashboardSidebar />
 
-      <SidebarInset>
-        <div className="flex items-center gap-3 border-b border-slate-200 bg-white px-6 py-4 dark:border-slate-800 dark:bg-slate-950">
+      <SidebarInset className="flex h-screen flex-col overflow-hidden">
+        <div className="flex h-16 shrink-0 items-center justify-between border-b border-slate-200 bg-white px-6 dark:border-slate-800 dark:bg-slate-950">
           <SidebarTrigger className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white" />
-
-          <div className="flex items-center gap-2">
-            <span className="text-slate-300 dark:text-slate-700">|</span>
-            <h1 className="text-sm font-semibold text-slate-500 dark:text-slate-400">
-              User Dashboard
-            </h1>
-          </div>
+          <AppNavbar variant="dashboard" />
         </div>
 
-        <div className="p-5">{children}</div>
+        <div className="flex-1 overflow-y-auto">{children}</div>
       </SidebarInset>
     </SidebarProvider>
   );

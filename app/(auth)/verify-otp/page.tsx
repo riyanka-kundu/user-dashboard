@@ -1,11 +1,7 @@
-import VerifyOtp from "@/components/auth/VerifyOtpForm";
+import VerifyOtp from "@/components/auth/verify-otp";
 
 const page = () => {
-  return (
-    <div>
-      <VerifyOtp />
-    </div>
-  );
+  return <VerifyOtp />;
 };
 
 export default page;

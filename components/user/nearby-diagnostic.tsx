@@ -111,7 +111,7 @@ export default function DiagnosticCenterMap() {
 
   return (
     <div className="w-full">
-      <div className="relative h-210 w-full overflow-hidden rounded-lg border">
+      <div className="relative h-200 w-full overflow-hidden rounded-lg border">
         <MapSearch onLocationSelect={handleLocationChange} />
 
         <MapContainer

@@ -15,7 +15,7 @@ export function MapSearch({ onLocationSelect }: Props) {
   const { mutate, data, isPending, reset } = useLocationSearch();
 
   return (
-    <div className="absolute left-1/2 top-4 z-[1000] w-[450px] -translate-x-1/2">
+    <div className="absolute left-1/2 top-4 z-1000 w-112.5 -translate-x-1/2">
       <form
         onSubmit={(e) => {
           e.preventDefault();

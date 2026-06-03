@@ -11,12 +11,14 @@ import {
 } from "@/type";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
+import { Cookies } from "react-cookie";
 import { toast } from "sonner";
 
 export const useUserDashboard = () => {
+  const token = new Cookies().get("token");
   return useQuery<TUserDashboard>({
     queryKey: [QUERY_KEY.DASHBOARD],
-
+    enabled: !!token,
     queryFn: async () => {
       const res = await axiosInstance.get(EndPoints.user.dashboard);
 
@@ -74,12 +76,13 @@ export const useDoctorList = () => {
   });
 };
 
-export const useUserHistory = () => {
+export const useUserHistory = (userId?: string) => {
   return useQuery({
-    queryKey: [QUERY_KEY.HISTORY],
+    queryKey: [QUERY_KEY.HISTORY, userId],
+    enabled: !!userId,
     queryFn: async () => {
       const res = await axiosInstance.get<THistoryResponse>(
-        EndPoints.user.history,
+        EndPoints.user.history(userId),
       );
       return res.data;
     },

@@ -13,7 +13,7 @@ export const EndPoints = {
     dashboard: "/user/dashboard",
     slotList: "/user/slot/list",
     appointment: "/doctor/appointment",
-    history: "/user/history",
+    history: (userId?: string) => `/user/history?userId=${userId}`,
   },
   doctor: {
     list: "/user/doctor/list",

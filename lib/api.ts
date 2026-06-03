@@ -39,6 +39,10 @@ axiosInstance.interceptors.response.use(
       try {
         const refresh = cookies.get("refresh");
 
+        if (!refresh) {
+          return Promise.reject(error);
+        }
+
         const { data, status } = await axios.post(
           `${process.env.NEXT_PUBLIC_BASE_URL}${EndPoints.auth.refresh}`,
           { refreshToken: refresh },

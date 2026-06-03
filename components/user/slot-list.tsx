@@ -68,7 +68,7 @@ export default function SlotList({
                      bg-white dark:bg-slate-800 text-gray-900 dark:text-white
                      placeholder:text-gray-400 dark:placeholder:text-slate-500
                      focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-blue-500
-                     [color-scheme:light] dark:[color-scheme:dark]"
+                     scheme-light dark:scheme-dark"
         />
 
         <button

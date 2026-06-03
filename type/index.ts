@@ -53,7 +53,7 @@ export type TAppointment = {
   name: string;
   date: string;
   time: string;
-  status: "pending" | "confirmed" | "cancelled";
+  status: "Pending" | "Confirmed" | "Cancelled";
   createdAt: string;
 };
 
@@ -83,4 +83,19 @@ export type TNominatimResult = {
   display_name: string;
   lat: string;
   lon: string;
+};
+
+export type TLoginResponse = {
+  status: boolean;
+  message: string;
+  data: TUser;
+  accessToken: string;
+  refreshToken: string;
+};
+
+export type TUser = {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
 };

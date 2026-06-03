@@ -25,28 +25,31 @@ const LoginForm = () => {
     },
   });
 
-  const onSubmit = async (data: TLoginPayload) => {
-    await login(data);
+  const onSubmit = (data: TLoginPayload) => {
+    login(data);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
-      <div className="w-full max-w-md bg-white shadow-2xl rounded-3xl p-8 border border-gray-100">
-        <h1 className="text-4xl font-bold text-center text-gray-900 mb-8">
+    <div className="min-h-screen bg-linear-to-br from-blue-50 to-indigo-100 dark:from-slate-900 dark:to-slate-950 flex items-center justify-center p-4">
+      <div className="w-full max-w-md bg-white dark:bg-slate-900 shadow-2xl rounded-3xl p-8 border border-gray-100 dark:border-slate-800">
+        <h1 className="text-4xl font-bold text-center text-gray-900 dark:text-white mb-8">
           Welcome Back
         </h1>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
           {/* Email */}
           <div className="space-y-2">
-            <label className="text-sm font-semibold text-gray-700">Email</label>
+            <label className="text-sm font-semibold text-gray-700 dark:text-slate-300">
+              Email
+            </label>
 
             <input
               {...register("email")}
               type="email"
               placeholder="example@email.com"
               disabled={isSubmitting}
-              className="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+              autoComplete="username"
+              className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
             />
 
             {errors.email && (
@@ -56,7 +59,7 @@ const LoginForm = () => {
 
           {/* Password */}
           <div className="space-y-2 relative">
-            <label className="text-sm font-semibold text-gray-700">
+            <label className="text-sm font-semibold text-gray-700 dark:text-slate-300">
               Password
             </label>
 
@@ -65,13 +68,14 @@ const LoginForm = () => {
               type={isOpen ? "text" : "password"}
               placeholder="Enter your password"
               disabled={isSubmitting}
-              className="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+              autoComplete="current-password"
+              className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
             />
 
             <button
               type="button"
               onClick={() => setIsOpen((prev) => !prev)}
-              className="absolute right-3 top-[42px] text-gray-500 hover:text-gray-700"
+              className="absolute right-3 top-10.5 text-gray-500 dark:text-slate-400 hover:text-gray-700 dark:hover:text-slate-200"
             >
               {isOpen ? <EyeOff size={20} /> : <Eye size={20} />}
             </button>
@@ -79,7 +83,7 @@ const LoginForm = () => {
             <div className="flex justify-end">
               <Link
                 href="/forgot-password"
-                className="text-sm text-blue-600 hover:underline font-medium"
+                className="text-sm text-blue-600 dark:text-blue-400 hover:underline font-medium"
               >
                 Forgot Password?
               </Link>
@@ -107,11 +111,11 @@ const LoginForm = () => {
           </button>
         </form>
 
-        <p className="text-center text-sm text-gray-600 mt-6">
+        <p className="text-center text-sm text-gray-600 dark:text-slate-400 mt-6">
           Don&apos;t have an account?{" "}
           <Link
             href="/register"
-            className="text-blue-600 hover:underline font-semibold"
+            className="text-blue-600 dark:text-blue-400 hover:underline font-semibold"
           >
             Register
           </Link>

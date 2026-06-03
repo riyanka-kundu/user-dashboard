@@ -1,20 +1,23 @@
 "use client";
 
 import { Skeleton } from "@/components/ui/skeleton";
-import { useUserHistory } from "@/hooks/user";
+import { useUserDashboard, useUserHistory } from "@/hooks/user";
 import { CalendarDays, Clock, IndianRupee, Stethoscope } from "lucide-react";
 
 export default function HistoryPage() {
-  const { data, isLoading } = useUserHistory();
+  const { data: user } = useUserDashboard();
+  const { data, isLoading } = useUserHistory(user?._id);
 
   const appointments = data?.data || [];
 
   const statusStyle = (status: string) => {
     switch (status) {
-      case "confirmed":
+      case "Confirmed":
         return "bg-green-100 text-green-700";
-      case "cancelled":
+      case "Cancelled":
         return "bg-red-100 text-red-700";
+      case "Pending":
+        return "bg-yellow-100 text-yellow-700";
       default:
         return "bg-yellow-100 text-yellow-700";
     }

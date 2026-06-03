@@ -24,7 +24,12 @@ const RootProvider = ({ children }: { children: ReactNode }) => {
           disableTransitionOnChange
         >
           {children}
-          <Toaster />
+          <Toaster
+            duration={3000}
+            position="top-right"
+            richColors
+            visibleToasts={5}
+          />
         </ThemeProvider>
       </QueryClientProvider>
     </CookiesProvider>

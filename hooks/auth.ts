@@ -5,6 +5,7 @@ import { QUERY_KEY } from "@/lib/query-key";
 import { TForgotPassword } from "@/schema/forgot-password";
 import { TLoginPayload } from "@/schema/login";
 import { registerPayload } from "@/schema/register";
+import { TLoginResponse } from "@/type";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
@@ -80,9 +81,12 @@ export const useLogin = () => {
     mutationKey: [QUERY_KEY.LOG_IN],
 
     mutationFn: async (payload: TLoginPayload) => {
-      const res = await axiosInstance.post(EndPoints.auth.login, payload);
-      const token = res.data.accessToken;
-      const refresh = res.data.refreshToken;
+      const { data: response } = await axiosInstance.post<TLoginResponse>(
+        EndPoints.auth.login,
+        payload,
+      );
+      const token = response.accessToken;
+      const refresh = response.refreshToken;
 
       cookie.set("token", token, {
         path: "/",
@@ -98,7 +102,7 @@ export const useLogin = () => {
         sameSite: "strict",
       });
 
-      return res.data.data;
+      return response;
     },
 
     onError: (error: AxiosError<{ message: string }>) => {
@@ -110,13 +114,14 @@ export const useLogin = () => {
       toast.success(data.message);
 
       setTimeout(() => {
-        router.push("/");
+        router.push("/dashboard");
       }, 1500);
     },
   });
 };
 
 export const useForgotPassword = () => {
+  const router = useRouter();
   return useMutation({
     mutationKey: [QUERY_KEY.FORGOT_PASSWORD],
 
@@ -136,6 +141,9 @@ export const useForgotPassword = () => {
 
     onSuccess: (data) => {
       toast.success(data.message);
+      setTimeout(() => {
+        router.push("/login");
+      }, 1500);
     },
   });
 };
