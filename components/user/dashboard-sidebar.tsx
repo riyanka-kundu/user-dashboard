@@ -54,7 +54,7 @@ export default function DashboardSidebar() {
             Main Menu
           </SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu className="space-y-0.5">
+            <SidebarMenu className="space-y-2">
               {menuItems.map((item) => {
                 const isActive = pathname === item.url;
                 return (

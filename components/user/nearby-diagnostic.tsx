@@ -17,7 +17,6 @@ import {
 import { MapSearch } from "@/components/user/location-search";
 import { useDiagnosticCenterList, useUserDashboard } from "@/hooks/user";
 import { createUserAvatarIcon } from "@/lib/leaflet-utils";
-import { useTheme } from "next-themes";
 
 function RecenterMap({ lat, lng }: { lat: number; lng: number }) {
   const map = useMap();
@@ -39,17 +38,9 @@ export default function DiagnosticCenterMap() {
   } | null>(null);
 
   const [locationError, setLocationError] = useState("");
-  const { resolvedTheme } = useTheme();
 
-  const tileUrl =
-    resolvedTheme === "dark"
-      ? "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-      : "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
-
-  const tileAttribution =
-    resolvedTheme === "dark"
-      ? "&copy; OpenStreetMap &copy; CARTO"
-      : "&copy; OpenStreetMap contributors";
+  const browserNotSupported =
+    typeof window !== "undefined" && !navigator.geolocation;
 
   const userIcon = useMemo(
     () =>
@@ -62,8 +53,7 @@ export default function DiagnosticCenterMap() {
   );
 
   useEffect(() => {
-    if (!navigator.geolocation) {
-      setLocationError("Your browser does not support location services.");
+    if (typeof window === "undefined" || !navigator.geolocation) {
       return;
     }
 
@@ -71,6 +61,7 @@ export default function DiagnosticCenterMap() {
       (position) => {
         const lat = position.coords.latitude;
         const lng = position.coords.longitude;
+
         setLocation({ lat, lng });
         mutate({ lat, lng });
       },
@@ -92,10 +83,10 @@ export default function DiagnosticCenterMap() {
     mutate({ lat, lng });
   };
 
-  if (!location && !locationError) {
+  if (!location && !browserNotSupported && !locationError) {
     return (
       <div
-        className="flex items-center justify-center bg-white dark:bg-slate-950 text-slate-600 dark:text-slate-400 text-sm font-medium"
+        className="flex items-center justify-center bg-white text-sm font-medium text-slate-600 dark:bg-slate-950 dark:text-slate-400"
         style={{ height: "calc(100vh - 80px)" }}
       >
         Getting your location...
@@ -103,18 +94,22 @@ export default function DiagnosticCenterMap() {
     );
   }
 
-  if (locationError) {
+  if (browserNotSupported || locationError) {
     return (
       <div
-        className="flex flex-col items-center justify-center bg-white dark:bg-slate-950 p-6 text-center"
+        className="flex flex-col items-center justify-center bg-white p-6 text-center dark:bg-slate-950"
         style={{ height: "calc(100vh - 80px)" }}
       >
         <h2 className="text-lg font-semibold text-slate-900 dark:text-white">
           Location Required
         </h2>
+
         <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
-          {locationError}
+          {browserNotSupported
+            ? "Your browser does not support location services."
+            : locationError}
         </p>
+
         <p className="mt-1 text-sm text-slate-400 dark:text-slate-500">
           Please enable location access and refresh the page.
         </p>
@@ -139,7 +134,10 @@ export default function DiagnosticCenterMap() {
         scrollWheelZoom
         className="h-full w-full"
       >
-        <TileLayer attribution={tileAttribution} url={tileUrl} />
+        <TileLayer
+          attribution="&copy; OpenStreetMap contributors"
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
 
         <RecenterMap lat={location.lat} lng={location.lng} />
 
@@ -160,13 +158,14 @@ export default function DiagnosticCenterMap() {
 
         {data?.data?.map((center) => {
           const [lng, lat] = center.location.coordinates;
+
           return (
             <Marker key={center._id} position={[lat, lng]}>
               <Popup>
-                <div>
+                <div className="space-y-1">
                   <h3 className="font-semibold">{center.name}</h3>
-                  <p>{center.address}</p>
-                  <p>{center.phone}</p>
+                  <p className="text-sm">{center.address}</p>
+                  <p className="text-sm">{center.phone}</p>
                 </div>
               </Popup>
             </Marker>
@@ -175,7 +174,7 @@ export default function DiagnosticCenterMap() {
       </MapContainer>
 
       {isPending && (
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-1000 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 text-sm font-medium px-4 py-2 rounded-full shadow-lg border border-slate-200 dark:border-slate-700">
+        <div className="absolute bottom-4 left-1/2 z-1000 -translate-x-1/2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-lg dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300">
           Loading nearby diagnostic centers...
         </div>
       )}
