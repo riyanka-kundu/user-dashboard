@@ -197,7 +197,7 @@ export default function HomePage() {
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Link
-                href="/register"
+                href="/login"
                 className="flex items-center gap-2 rounded-2xl bg-blue-600 px-7 py-3.5 text-base font-bold text-white shadow-lg shadow-blue-200 transition hover:bg-blue-700 dark:shadow-blue-900"
               >
                 Book Appointment <ArrowRight className="size-5" />
