@@ -85,6 +85,9 @@ export const useLogin = () => {
         EndPoints.auth.login,
         payload,
       );
+      console.log("BASE_URL =", process.env.NEXT_PUBLIC_BASE_URL);
+      console.log("AXIOS_BASE_URL =", axiosInstance.defaults.baseURL);
+      console.log("LOGIN_ENDPOINT =", EndPoints.auth.login);
       const token = response.accessToken;
       const refresh = response.refreshToken;
 

@@ -2,7 +2,7 @@ import { EndPoints } from "@/lib/endpoints";
 import axios from "axios";
 import { Cookies } from "react-cookie";
 export const axiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+  baseURL: "http://localhost:4000",
   withCredentials: true,
 });
 
